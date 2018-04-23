@@ -1,11 +1,10 @@
 body {
   color: #ffffff;
   height: 568px;
-  width: 320px;
+  width: 340px;
   margin: 0px;
-  background-image: url('../img/bg1.png');
-  background-repeat:no-repeat;
-  font-family: 'Roboto', Arial, sans-serif; font-weight: 100; 
+  font-family: 'Roboto', Arial, sans-serif; font-weight: bold;
+  background: rgb(0, 87, 159);
 }
 
 #statusbar-40 {
@@ -13,7 +12,7 @@ body {
 }
 
 #title {
-  font-size: 22px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -33,20 +32,23 @@ body {
 .num {
   font-size: 25px;
   color: #ffffff;
-  font-family: 'Roboto', Arial, sans-serif; font-weight: 100; 
+  font-family: 'Roboto', Arial, sans-serif; font-weight: bold;
   margin: 6px 12px;
   border: 1px solid #ffffff;
   padding: 10px 19px;
   border-radius: 999px;
   background-color: rgba(255,0,0,0);
+  vertical-align: middle;
 }
 #num-10{
   /*background-color: rgba(0,0,0,0.3);*/
-  padding: 10px 13px;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 18px 7px;
 }
 #num-11 {
   /*background-color: rgba(255,255,255,0.3);*/
-  padding: 10px 9px;
+  padding: 10px 14px;
 }
 
 #loading-div {

@@ -1,136 +1,139 @@
-
-    // console.log(id);
+// console.log(id);
 var input = [];
 var supportTouch = ('ontouchstart' in document.documentElement);
 
-if(window.navigator.standalone){
-  initListener();
-}else{
-  initListener();
+if (window.navigator.standalone) {
+    initListener();
+} else {
+    initListener();
 }
 
-function initListener(){
-  for (var i = 11; i >= 0; i--) {
-    var id = "#num-"+i;
-    $(id).on("touchstart", onTouchStart(i));
-    $(id).on("touchend", onTouchEnd(i));
-    if (!supportTouch) {
-      $(id).on("click", onClickMe(i));
+function initListener() {
+    for (var i = 11; i >= 0; i--) {
+        var id = "#num-" + i;
+        $(id).on("touchstart", onTouchStart(i));
+        $(id).on("touchend", onTouchEnd(i));
+        if (!supportTouch) {
+            $(id).on("click", onClickMe(i));
+        }
     }
-  };
-  // for loading animation
-  var spinner = new Spinner().spin();
-  $('#loading-div').append(spinner.el);
+    // for loading animation
+    var spinner = new Spinner().spin();
+    $('#loading-div').append(spinner.el);
 }
 
-function onTouchStart(num){
-  return function() {
-      $("#num-"+num).css("backgroundColor", "rgba(255,255,255,1)");
-      $("#num-"+num).css("color", "rgba(0,0,0,1)");
+function onTouchStart(num) {
+    return function () {
+        $("#num-" + num).css("backgroundColor", "rgba(255,255,255,1)");
+        $("#num-" + num).css("color", "rgba(0,0,0,1)");
     };
 }
 
-function onTouchEnd(num){
-  return function() {
-      $("#num-"+num).css("backgroundColor", "rgba(0,0,0,0)");
-      $("#num-"+num).css("color", "rgba(255,255,255,1)");
-      if (supportTouch) {
-        onClickOrigin(num);
-      }
+function onTouchEnd(num) {
+    return function () {
+        $("#num-" + num).css("backgroundColor", "rgba(0,0,0,0)");
+        $("#num-" + num).css("color", "rgba(255,255,255,1)");
+        if (supportTouch) {
+            onClickOrigin(num);
+        }
     };
 }
 
-function onClickMe(num){
-  return function(){onClickOrigin(num)};
+function onClickMe(num) {
+    return function () {
+        onClickOrigin(num)
+    }
 }
 
-function onClickOrigin(num){
-  if(num === 10){
+function onClickOrigin(num) {
+    if (num === 11) {
         deleteInput();
-      }else if (num === 11) {
+    } else if (num === 10) {
         loadingAnimate();
         postPasscode();
-      }else{
+    } else {
         addInput(num);
-      };
+    }
 }
-function addInput(num){
-  input.push(num);
-  console.log(input);
-  if(input.length<=3){
-    $("#input-num-"+input.length).text(num);
-  }
+
+function addInput(num) {
+    if (input.length < 4) {
+        input.push(num);
+        console.log(input);
+        $("#input-num-" + input.length).text(num);
+    }
 }
-function deleteInput(){
-  if(input.length<=3){
-    $("#input-num-"+input.length).text("·");
-  }
-  input.pop();
+
+function deleteInput() {
+    if (input.length <= 4) {
+        $("#input-num-" + input.length).text("·");
+    }
+    input.pop();
 }
 
 
-function postPasscode(){
-  // $.post("/passwd", { command : input})
-  // .done(function(data) {
-  //   stopLoading();
-  //   var func = new Function(data);
-  //   func();//receive js code from service and run it.
-  // });
-  var passcode = [8,8,8];
-  if(input.compare(passcode)){
-    passedAnimation();
-    
-  }else{
-    wrongPasswd();
-  }
-  stopLoading();
+function postPasscode() {
+    // $.post("/passwd", { command : input})
+    // .done(function(data) {
+    //   stopLoading();
+    //   var func = new Function(data);
+    //   func();//receive js code from service and run it.
+    // });
+    var passcode = [8, 8, 8];
+    if (input.compare(passcode)) {
+        passedAnimation();
+
+    } else {
+        wrongPasswd();
+    }
+    stopLoading();
 }
 
-function wrongPasswd(){
-  wrongAnimate($('#input-div'), 66,5);
-  input = [];
-  console.log(input);
+function wrongPasswd() {
+    wrongAnimate($('#input-div'), 66, 5);
+    input = [];
+    console.log(input);
 }
 
-function passedAnimation(){
-  $('#main-div').animate({"marginTop":"50px"}, 500, function() {
-    $('#main-div').animate({"marginTop":"-880px"},888,function(){
-      // location.reload();
-      alert("Enter!");
+function passedAnimation() {
+    $('#main-div').animate({"marginTop": "50px"}, 500, function () {
+        $('#main-div').animate({"marginTop": "-880px"}, 888, function () {
+            // location.reload();
+            alert("Enter!");
+        });
     });
-  });
 }
 
-function loadingAnimate(){
-  $('#loading-div').css("display","block"); 
+function loadingAnimate() {
+    $('#loading-div').css("display", "block");
 }
 
-function stopLoading(){
-  $('#loading-div').css("display","none");
+function stopLoading() {
+    $('#loading-div').css("display", "none");
 }
 
 function wrongAnimate(targetElement, speed, times) {
-  $(targetElement).css("color", "#FF4444");
-  $(targetElement).animate({ marginLeft: "+=32px"},
-  {
-    duration: speed,
-    complete: function (){
-      targetElement.animate({ marginLeft: "-=32px" },
-      {
-        duration: speed,
-        complete: function (){
-          if(times>0){
-            wrongAnimate(targetElement, speed,--times);
-          }else{
-            for (var i = 3; i >= 1; i--) {
-              $("#input-num-"+i).text("·");
+    $(targetElement).css("color", "#FF4444");
+    $(targetElement).animate({marginLeft: "+=32px"},
+        {
+            duration: speed,
+            complete: function () {
+                targetElement.animate({marginLeft: "-=32px"},
+                    {
+                        duration: speed,
+                        complete: function () {
+                            if (times > 0) {
+                                wrongAnimate(targetElement, speed, --times);
+                            } else {
+                                for (var i = 3; i >= 1; i--) {
+                                    $("#input-num-" + i).text("·");
+                                }
+                                $(targetElement).css("color", "#FFFFFF");
+                            }
+                        }
+                    });
             }
-            $(targetElement).css("color", "#FFFFFF");
-          }
-        }
-      });
-    }
-  });
+        });
 };
 
 //http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
