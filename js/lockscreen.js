@@ -12,9 +12,6 @@ function initListener() {
     for (var i = 11; i >= 0; i--) {
         initButton(i)
     }
-    // for loading animation
-    var spinner = new Spinner().spin();
-    $('#loading-div').append(spinner.el);
 }
 
 function initButton(id) {
@@ -135,11 +132,11 @@ function wrongAnimate(targetElement, speed, times) {
     for (var i = 4; i >= 1; i--) {
         $("#input-num-" + i).css('box-shadow', '0px 0px 5px 2px #ff8997').css('background', '#ff8997');
     }
-    $(targetElement).animate({marginLeft: "+=32px"},
+    $(targetElement).animate({marginLeft: "+=24px"},
         {
             duration: speed,
             complete: function () {
-                targetElement.animate({marginLeft: "-=32px"},
+                targetElement.animate({marginLeft: "-=24px"},
                     {
                         duration: speed,
                         complete: function () {
