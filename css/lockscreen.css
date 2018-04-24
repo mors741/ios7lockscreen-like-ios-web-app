@@ -1,59 +1,80 @@
 body {
-  color: #ffffff;
-  height: 568px;
-  width: 340px;
-  margin: 0px;
-  font-family: 'Roboto', Arial, sans-serif; font-weight: bold;
-  background: rgb(0, 87, 159);
+    display: table;
+    height: 100%;
+    margin: auto;
+    color: #ffffff;
+    width: 340px;
+    font-family: sans-serif;
+    background: rgb(0, 87, 159);
+}
+
+#main-div {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #statusbar-40 {
-  height: 40px;
+    height: 40px;
 }
 
 #title {
-  font-size: 20px;
-  text-align: center;
+    font-size: 20px;
+    text-align: center;
+}
+
+#separator {
+    font-size: 12px;
+    color: rgb(51, 120, 178);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#subtitle {
+    font-size: 12px;
+    color: rgb(179, 204, 226);
+    text-align: center;
 }
 
 #input-div {
-  font-size: 50px;
-  margin: 10px 0px 0px 0px;
-  text-align: center;
+    font-size: 50px;
+    margin: 10px 0px 0px 0px;
+    text-align: center;
 }
 
 .input-num {
-  margin: 0px 15px;
+    margin: 0px 5px;
 }
 
 .num-row {
-  margin: 20px 39px;
+    margin: 20px 39px;
 }
+
 .num {
-  font-size: 25px;
-  color: #ffffff;
-  font-family: 'Roboto', Arial, sans-serif; font-weight: bold;
-  margin: 6px 12px;
-  border: 1px solid #ffffff;
-  padding: 10px 19px;
-  border-radius: 999px;
-  background-color: rgba(255,0,0,0);
-  vertical-align: middle;
+    font-size: 25px;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 6px 12px;
+    border: 1px solid #ffffff;
+    padding: 13px 19px;
+    border-radius: 999px;
+    background-color: rgba(255, 0, 0, 0);
+    vertical-align: middle;
 }
-#num-10{
-  /*background-color: rgba(0,0,0,0.3);*/
-  font-size: 12px;
-  font-weight: 900;
-  padding: 18px 7px;
+
+#num-10 { /* cancel button */
+    font-size: 12px;
+    font-weight: 900;
+    padding: 21px 6px;
 }
-#num-11 {
-  /*background-color: rgba(255,255,255,0.3);*/
-  padding: 10px 14px;
+
+#num-11 { /* back button */
+    padding: 13px 17px;
 }
 
 #loading-div {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: none;
 }

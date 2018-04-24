@@ -65,10 +65,11 @@ function addInput(num) {
 }
 
 function deleteInput() {
-    if (input.length <= 4) {
+    if (input.length > 0) {
         $("#input-num-" + input.length).text("·");
+        input.pop();
+        console.log(input);
     }
-    input.pop();
 }
 
 
@@ -134,7 +135,7 @@ function wrongAnimate(targetElement, speed, times) {
                     });
             }
         });
-};
+}
 
 //http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
 // attach the .compare method to Array's prototype to call it on any array
