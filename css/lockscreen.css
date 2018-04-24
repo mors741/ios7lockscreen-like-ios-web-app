@@ -60,6 +60,11 @@ button::-moz-focus-inner {
     margin: 0px 5px;
 }
 
+.num:active {
+    background-color: white;
+    color: black;
+}
+
 .num-row {
     margin: 15px 30px;
 }

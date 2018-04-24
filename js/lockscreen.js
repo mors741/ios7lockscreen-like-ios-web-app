@@ -10,16 +10,27 @@ if (window.navigator.standalone) {
 
 function initListener() {
     for (var i = 11; i >= 0; i--) {
-        var id = "#num-" + i;
-        $(id).on("touchstart", onTouchStart(i));
-        $(id).on("touchend", onTouchEnd(i));
-        if (!supportTouch) {
-            $(id).on("click", onClickMe(i));
-        }
+        initButton(i)
     }
     // for loading animation
     var spinner = new Spinner().spin();
     $('#loading-div').append(spinner.el);
+}
+
+function initButton(id) {
+    var button = $("#num-" + id)
+    button.on("touchstart", onTouchStart(id));
+    button.on("touchend", onTouchEnd(id));
+    if (!supportTouch) {
+        button.on("click", onClickMe(id));
+    }
+}
+
+function disableButton(id) {
+    var button = $("#num-" + id)
+    button.off('click');
+    button.off('touchstart');
+    button.off('touchend');
 }
 
 function onTouchStart(num) {
@@ -80,7 +91,7 @@ function postPasscode() {
     //   var func = new Function(data);
     //   func();//receive js code from service and run it.
     // });
-    var passcode = [8, 8, 8];
+    var passcode = [8, 8, 8, 8];
     if (input.compare(passcode)) {
         passedAnimation();
 
@@ -91,6 +102,7 @@ function postPasscode() {
 }
 
 function wrongPasswd() {
+    disableButton(10); // prevent repeated events until animation ends
     wrongAnimate($('#input-div'), 66, 5);
     input = [];
     console.log(input);
@@ -126,10 +138,11 @@ function wrongAnimate(targetElement, speed, times) {
                             if (times > 0) {
                                 wrongAnimate(targetElement, speed, --times);
                             } else {
-                                for (var i = 3; i >= 1; i--) {
+                                for (var i = 4; i >= 1; i--) {
                                     $("#input-num-" + i).text("·");
                                 }
                                 $(targetElement).css("color", "#FFFFFF");
+                                initButton(10); // resume event handling on cancel button
                             }
                         }
                     });
