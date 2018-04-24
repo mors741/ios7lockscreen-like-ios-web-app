@@ -1,5 +1,7 @@
 // console.log(id);
 var input = [];
+var savedInput = [];
+var timerStarted = false;
 var supportTouch = ('ontouchstart' in document.documentElement);
 
 if (window.navigator.standalone) {
@@ -76,6 +78,29 @@ function addInput(num) {
         console.log(input);
         $("#input-num-" + input.length).css('box-shadow', '0px 0px 5px 2px rgba(255,255,255,0.3)').css('background', 'white');
     }
+    if (input.length === 4) {
+        if (savedInput.length === 0) {
+            // confirmation
+            if (!timerStarted) {
+                timerStarted = true;
+                setTimeout(function () {
+                    savedInput = input;
+                    input = [];
+                    $('#subtitle').text('Confirm the mPIN');
+                    resetIndicators();
+                    timerStarted = false;
+                }, 150)
+            }
+        } else {
+            // check and post
+            if (input.compare(savedInput)) {
+                alert('correct');
+            } else {
+                wrongPasswd()
+            }
+        }
+
+    }
 }
 
 function deleteInput() {
@@ -108,6 +133,7 @@ function wrongPasswd() {
     disableListener(); // prevent events until animation ends
     wrongAnimate($('#input-div'), 66, 5);
     input = [];
+    savedInput = [];
     console.log(input);
 }
 
@@ -143,16 +169,20 @@ function wrongAnimate(targetElement, speed, times) {
                             if (times > 0) {
                                 wrongAnimate(targetElement, speed, --times);
                             } else {
-                                for (var i = 4; i >= 1; i--) {
-                                    $("#input-num-" + i).css('box-shadow', 'none').css('background', '#80abcf');
-                                }
-                                $(targetElement).css("color", "#FFFFFF");
+                                resetIndicators();
+                                $('#subtitle').text('Create an mPIN');
                                 initListener(); // resume event handling on cancel button
                             }
                         }
                     });
             }
         });
+}
+
+function resetIndicators() {
+    for (var i = 4; i >= 1; i--) {
+        $("#input-num-" + i).css('box-shadow', 'none').css('background', '#80abcf');
+    }
 }
 
 //http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
