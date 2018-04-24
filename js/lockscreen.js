@@ -77,13 +77,13 @@ function addInput(num) {
     if (input.length < 4) {
         input.push(num);
         console.log(input);
-        $("#input-num-" + input.length).text(num);
+        $("#input-num-" + input.length).css('box-shadow', '0px 0px 5px 2px rgba(255,255,255,0.3)').css('background', 'white');
     }
 }
 
 function deleteInput() {
     if (input.length > 0) {
-        $("#input-num-" + input.length).text("·");
+        $("#input-num-" + input.length).css('box-shadow', 'none').css('background', '#80abcf');
         input.pop();
         console.log(input);
     }
@@ -132,7 +132,9 @@ function stopLoading() {
 }
 
 function wrongAnimate(targetElement, speed, times) {
-    $(targetElement).css("color", "#FF4444");
+    for (var i = 4; i >= 1; i--) {
+        $("#input-num-" + i).css('box-shadow', '0px 0px 5px 2px #ff8997').css('background', '#ff8997');
+    }
     $(targetElement).animate({marginLeft: "+=32px"},
         {
             duration: speed,
@@ -145,7 +147,7 @@ function wrongAnimate(targetElement, speed, times) {
                                 wrongAnimate(targetElement, speed, --times);
                             } else {
                                 for (var i = 4; i >= 1; i--) {
-                                    $("#input-num-" + i).text("·");
+                                    $("#input-num-" + i).css('box-shadow', 'none').css('background', '#80abcf');
                                 }
                                 $(targetElement).css("color", "#FFFFFF");
                                 initListener(); // resume event handling on cancel button
