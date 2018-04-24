@@ -3,9 +3,24 @@ body {
     height: 100%;
     margin: auto;
     color: #ffffff;
-    width: 340px;
-    font-family: sans-serif;
+    width: 315px;
+    font-family: Arial, Helvetica, sans-serif;
     background: rgb(0, 87, 159);
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+* {
+    outline: none;
+}
+
+button::-moz-focus-inner {
+    border: 0;
 }
 
 #main-div {
@@ -46,30 +61,28 @@ body {
 }
 
 .num-row {
-    margin: 20px 39px;
+    margin: 15px 30px;
 }
 
 .num {
     font-size: 25px;
     color: #ffffff;
-    font-family: sans-serif;
     font-weight: bold;
     margin: 6px 12px;
     border: 1px solid #ffffff;
-    padding: 13px 19px;
     border-radius: 999px;
     background-color: rgba(255, 0, 0, 0);
     vertical-align: middle;
+    width: 58px;
+    height: 58px;
 }
 
 #num-10 { /* cancel button */
     font-size: 12px;
     font-weight: 900;
-    padding: 21px 6px;
 }
 
 #num-11 { /* back button */
-    padding: 13px 17px;
 }
 
 #loading-div {
