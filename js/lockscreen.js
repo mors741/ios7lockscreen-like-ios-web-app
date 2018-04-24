@@ -26,6 +26,12 @@ function initButton(id) {
     }
 }
 
+function disableListener() {
+    for (var i = 11; i >= 0; i--) {
+        disableButton(i)
+    }
+}
+
 function disableButton(id) {
     var button = $("#num-" + id)
     button.off('click');
@@ -102,7 +108,7 @@ function postPasscode() {
 }
 
 function wrongPasswd() {
-    disableButton(10); // prevent repeated events until animation ends
+    disableListener(); // prevent events until animation ends
     wrongAnimate($('#input-div'), 66, 5);
     input = [];
     console.log(input);
@@ -142,7 +148,7 @@ function wrongAnimate(targetElement, speed, times) {
                                     $("#input-num-" + i).text("·");
                                 }
                                 $(targetElement).css("color", "#FFFFFF");
-                                initButton(10); // resume event handling on cancel button
+                                initListener(); // resume event handling on cancel button
                             }
                         }
                     });
