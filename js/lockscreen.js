@@ -1,7 +1,7 @@
 // console.log(id);
 var input = [];
 var savedInput = [];
-var timerStarted = false;
+var eventsEnabled = true;
 var supportTouch = ('ontouchstart' in document.documentElement);
 
 if (window.navigator.standalone) {
@@ -25,39 +25,32 @@ function initButton(id) {
     }
 }
 
-function disableListener() {
-    for (var i = 11; i >= 0; i--) {
-        disableButton(i)
-    }
-}
-
-function disableButton(id) {
-    var button = $("#num-" + id)
-    button.off('click');
-    button.off('touchstart');
-    button.off('touchend');
-}
-
 function onTouchStart(num) {
     return function () {
-        $("#num-" + num).css("backgroundColor", "rgba(255,255,255,1)");
-        $("#num-" + num).css("color", "rgba(0,0,0,1)");
+        if (eventsEnabled) {
+            $("#num-" + num).css("backgroundColor", "rgba(255,255,255,1)");
+            $("#num-" + num).css("color", "rgba(0,0,0,1)");
+        }
     };
 }
 
 function onTouchEnd(num) {
     return function () {
-        $("#num-" + num).css("backgroundColor", "rgba(0,0,0,0)");
-        $("#num-" + num).css("color", "rgba(255,255,255,1)");
-        if (supportTouch) {
-            onClickOrigin(num);
+        if (eventsEnabled) {
+            $("#num-" + num).css("backgroundColor", "rgba(0,0,0,0)");
+            $("#num-" + num).css("color", "rgba(255,255,255,1)");
+            if (supportTouch) {
+                onClickOrigin(num);
+            }
         }
     };
 }
 
 function onClickMe(num) {
     return function () {
-        onClickOrigin(num)
+        if (eventsEnabled) {
+            onClickOrigin(num);
+        }
     }
 }
 
@@ -81,16 +74,14 @@ function addInput(num) {
     if (input.length === 4) {
         if (savedInput.length === 0) {
             // confirmation
-            if (!timerStarted) {
-                timerStarted = true;
-                setTimeout(function () {
-                    savedInput = input;
-                    input = [];
-                    $('#subtitle').text('Confirm the mPIN');
-                    resetIndicators();
-                    timerStarted = false;
-                }, 150)
-            }
+            eventsEnabled = false; // prevent events until animation ends
+            setTimeout(function () {
+                savedInput = input;
+                input = [];
+                $('#subtitle').text('Confirm the mPIN');
+                resetIndicators();
+                eventsEnabled = true; // resume events handling
+            }, 150)
         } else {
             // check and post
             if (input.compare(savedInput)) {
@@ -130,7 +121,7 @@ function postPasscode() {
 }
 
 function wrongPasswd() {
-    disableListener(); // prevent events until animation ends
+    eventsEnabled = false; // prevent events until animation ends
     wrongAnimate($('#input-div'), 66, 5);
     input = [];
     savedInput = [];
@@ -171,7 +162,7 @@ function wrongAnimate(targetElement, speed, times) {
                             } else {
                                 resetIndicators();
                                 $('#subtitle').text('Create an mPIN');
-                                initListener(); // resume event handling on cancel button
+                                eventsEnabled = true;  // resume events handling
                             }
                         }
                     });
